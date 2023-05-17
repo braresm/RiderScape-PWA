@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "rain-radar-ca0bf": {
+      "hosting": {
+        "rain-radar": [
+          "rain-radar-ca0bf"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "rain-radar-ca0bf"
+  }
+}

@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Add new shift</h2>
+<mat-dialog-content>
+  <form [formGroup]="addShiftForm" (ngSubmit)="onAddShift()">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Enter shift name</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Shift A"
+        [formControl]="name"
+        required
+      />
+      <mat-error *ngIf="name.invalid">{{ getNameErrorMessage() }} </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Choose start date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="startDatepicker"
+        [formControl]="startDate"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="startDatepicker">
+      </mat-datepicker-toggle>
+      <mat-datepicker #startDatepicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Choose end date</mat-label>
+      <input matInput [matDatepicker]="endDatepicker" [formControl]="endDate" />
+      <mat-datepicker-toggle matIconSuffix [for]="endDatepicker">
+      </mat-datepicker-toggle>
+      <mat-datepicker #endDatepicker></mat-datepicker>
+    </mat-form-field>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="!addShiftForm.valid"
+      class="w-100"
+    >
+      Save
+    </button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary">Save</button>
+</mat-dialog-actions>

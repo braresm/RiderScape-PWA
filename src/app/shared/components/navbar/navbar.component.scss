@@ -1,0 +1,118 @@
+.navbar {
+  .main-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+
+    .navbar-option {
+      font-size: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .navbar-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: double 0.5rem transparent;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+        margin-bottom: 0.5rem;
+
+        mat-icon {
+          color: #333;
+          transform: scale(1.5);
+        }
+
+        &.link-left {
+          position: relative;
+          z-index: 10;
+          background-image: linear-gradient(white, white),
+            linear-gradient(90deg, #f48020, #e71f77);
+        }
+
+        &.link-right {
+          position: relative;
+          z-index: 10;
+          background-image: linear-gradient(white, white),
+            linear-gradient(90deg, #e71f77, #33b567);
+        }
+      }
+    }
+
+    .delimiter {
+      background-color: #e71f77;
+      width: 30px;
+      height: 50px;
+      position: absolute;
+      top: 20%;
+      left: 40.8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 9;
+
+      .top {
+        z-index: 1;
+        position: relative;
+        top: -11px;
+        width: 102%;
+        height: 20px;
+        background-color: #fff;
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+      }
+
+      .bottom {
+        z-index: 1;
+        position: relative;
+        bottom: -11px;
+        width: 102%;
+        height: 20px;
+        background-color: #fff;
+        border-top-left-radius: 50%;
+        border-top-right-radius: 50%;
+      }
+    }
+  }
+
+  .secondary-options {
+    position: absolute;
+    top: -10px;
+    right: -50px;
+
+    .navbar-option {
+      .navbar-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: double 0.3rem transparent;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+        background-image: linear-gradient(white, white),
+          linear-gradient(
+            90deg,
+            #33b567 25.097707139134968%,
+            #e71f77 48.27853048462741%,
+            #f48020 77.7813965607087%
+          );
+
+        mat-icon {
+          color: #333;
+        }
+      }
+
+      &:last-child {
+        margin-top: 0.25rem;
+        margin-left: 1rem;
+      }
+    }
+  }
+}

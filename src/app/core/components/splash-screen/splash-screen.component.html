@@ -1,0 +1,27 @@
+<div
+  class="splash-screen"
+  [ngStyle]="{ left: windowWidth }"
+  *ngIf="showSplashScreen"
+>
+  <div class="logo">
+    <img src="/assets/images/logo.png" alt="RainRadar logo" />
+  </div>
+  <p>In partnership with</p>
+  <div class="partners">
+    <img
+      src="/assets/images/partners/flink.png"
+      alt="Flink"
+      class="partner-logo"
+    />
+    <img
+      src="/assets/images/partners/uber-eats.png"
+      alt="Uber Eats"
+      class="partner-logo"
+    />
+    <img
+      src="/assets/images/partners/thuisbezorgd.png"
+      alt="Thuisbezorgd"
+      class="partner-logo"
+    />
+  </div>
+</div>

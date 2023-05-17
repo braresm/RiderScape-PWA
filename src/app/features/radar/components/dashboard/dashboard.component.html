@@ -1,0 +1,210 @@
+<ng-container *ngIf="currentLocation$ | async as currentLocation">
+  <div class="page-content" *ngIf="currentLocation; else locationNotAvailable">
+    <div class="container">
+      <div class="header" *ngIf="currentUser$ | async as currentUser">
+        <div class="profile">
+          <div class="image-container">
+            <div class="helmet-container">
+              <img
+                src="/assets/images/profile/helmet.png"
+                alt="Helmet"
+                class="helmet-image"
+              />
+            </div>
+            <div
+              class="profile-image"
+              [ngStyle]="{
+                'background-image': 'url(' + currentUser.photoURL + ')'
+              }"
+              *ngIf="currentUser.photoURL"
+            ></div>
+            <div
+              class="profile-image"
+              style="
+                background-image: url('/assets/images/profile/user-default.png');
+              "
+              *ngIf="!currentUser.photoURL"
+            ></div>
+            // change profile pic
+            <div class="image-upload">
+              <label for="userAvatar">
+                <img
+                  src="/assets/images/icons/camera-icon.png"
+                  alt="Upload image"
+                />
+              </label>
+              <input
+                type="file"
+                id="userAvatar"
+                name="user-avatar"
+                autocomplete="off"
+                accept="image/png, image/jpeg"
+                capture="user"
+                (change)="onUserImageSelected($event)"
+              />
+            </div>
+          </div>
+          <div class="user-details">
+            <div>
+              <div class="fullname">
+                {{ currentUser.displayName }}
+              </div>
+              <div class="email">{{ currentUser.email }}</div>
+            </div>
+
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="userMenu"
+              aria-label="User menu"
+            >
+              <mat-icon>expand_more</mat-icon>
+            </button>
+            <mat-menu #userMenu="matMenu">
+              <button mat-menu-item (click)="onLogout()">
+                <mat-icon>logout</mat-icon>
+                <span>Logout</span>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+        <div class="calendar">
+          <button
+            mat-icon-button
+            aria-label="Calendar button"
+            (click)="onAddShift()"
+          >
+            <mat-icon>calendar_month</mat-icon>
+          </button>
+        </div>
+      </div>
+      <ng-container *ngIf="weatherForecast$ | async as weatherForecast">
+        <div class="location">
+          <div class="container">
+            <div class="row">
+              <div class="col-6">
+                <div class="location-details">
+                  <h2>{{ currentLocation.name }}</h2>
+                  <div class="current-date">
+                    {{ getCurrentDate() | date : "mediumDate" }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <div class="current-weather" *ngIf="weatherForecast.length > 0">
+                  <div class="weather-icon">
+                    <img
+                      src="/assets/weather-icons/{{
+                        weatherForecast[0].weatherState.icon
+                      }}"
+                      alt="{{ weatherForecast[0].weatherState.description }}"
+                    />
+                  </div>
+                  <div class="weather-degrees">
+                    {{ weatherForecast[0].temperature }}
+                    <sup>o</sup>C
+                  </div>
+                  <div class="weather-description">
+                    {{ weatherForecast[0].weatherState.description }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="weather-feedback">
+          <div class="feedback-image">
+            <img src="/assets/images/feedback-image.png" alt="Feedback image" />
+          </div>
+          <div class="feedback-text">
+            <div class="hint">Please don't forget to wear a jacket!</div>
+            <ul class="weather-summary">
+              <li>
+                <img
+                  src="/assets/images/temperature-notification-icon.jfif"
+                  alt="Temperature"
+                />
+                <span>Chilly</span>
+              </li>
+              <li>
+                <mat-icon>calendar_month</mat-icon>
+                <span>Windy</span>
+              </li>
+              <li>
+                <mat-icon>calendar_month</mat-icon>
+                <span>Light rain</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="weather-forecast">
+          <h2>Hourly forecast</h2>
+          <div class="container">
+            <div class="row">
+              <div
+                class="col-3"
+                *ngFor="let forecast of weatherForecast; let idx = index"
+              >
+                <div class="weather-item" [ngClass]="{ active: idx === 0 }">
+                  <div class="hour">
+                    {{ getLocalTime(forecast.time) }}
+                  </div>
+                  <div class="weather-icon">
+                    <img
+                      src="/assets/weather-icons/{{
+                        forecast.weatherState.icon
+                      }}"
+                      alt="{{ forecast.weatherState.description }}"
+                    />
+                  </div>
+                  <div class="weather-degrees">
+                    {{ forecast.temperature }}
+                    <sup>o</sup>C
+                  </div>
+                  <div class="weather-data">
+                    {{ forecast.weatherState.description }}
+                  </div>
+                  <div class="weather-data">
+                    <img
+                      src="/assets/weather-icons/ic_wind_white.svg"
+                      alt="Wind"
+                      *ngIf="idx === 0"
+                    />
+                    <img
+                      src="/assets/weather-icons/ic_wind.svg"
+                      alt="Wind"
+                      *ngIf="idx > 0"
+                    />
+                    <div>{{ forecast.windspeed }} km/h</div>
+                  </div>
+                  <div class="weather-data">
+                    <img
+                      src="/assets/weather-icons/ic_drop_white.svg"
+                      alt="Rain"
+                      *ngIf="idx === 0"
+                    />
+                    <img
+                      src="/assets/weather-icons/ic_drop.svg"
+                      alt="Rain"
+                      *ngIf="idx > 0"
+                    />
+                    <div>{{ forecast.precipitation }} mm/h</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="container">
+        <div class="d-flex justify-content-center mt-5">
+          <app-navbar></app-navbar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #locationNotAvailable>
+    Your location is not available.
+  </ng-template>
+</ng-container>

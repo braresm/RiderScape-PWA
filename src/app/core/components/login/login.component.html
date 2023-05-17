@@ -1,0 +1,50 @@
+<div class="login-page">
+  <div class="container">
+    <div class="login-card">
+      <h1>Login with your company details</h1>
+      <mat-card>
+        <mat-card-content>
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Enter your email</mat-label>
+              <input
+                matInput
+                type="email"
+                placeholder="john@example.com"
+                [formControl]="email"
+                required
+              />
+              <mat-error *ngIf="email.invalid"
+                >{{ getEmailErrorMessage() }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Enter your password</mat-label>
+              <input
+                matInput
+                type="password"
+                placeholder="my secret password"
+                [formControl]="password"
+                required
+              />
+              <mat-error *ngIf="password.invalid"
+                >{{ getPasswordErrorMessage() }}
+              </mat-error>
+            </mat-form-field>
+            <button
+              mat-flat-button
+              color="primary"
+              [disabled]="!loginForm.valid"
+              class="w-100"
+            >
+              Login
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+      <p class="info-note">
+        You don't have an account? &nbsp; <a href="/register">Register here</a>
+      </p>
+    </div>
+  </div>
+</div>

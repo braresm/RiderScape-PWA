@@ -1,0 +1,17 @@
+<div class="pwa-notification" *ngIf="isInstallNotiticationVisible$ | async">
+  <div class="container">
+    <div class="alert alert-info" role="alert">
+      <div class="notification-content">
+        <div class="message">
+          This is a PWA application and can be installed on your device.
+        </div>
+        <div class="actions">
+          <button mat-flat-button color="primary" (click)="onInstallPwa()">
+            <mat-icon>download</mat-icon>
+            Install
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
